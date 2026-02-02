@@ -15,6 +15,17 @@ services:
     volumes:
       - calibre_web-config:/config
       - ~/calibre/calibre_library:/books
-    ports:
-      - 8083:8083
+    #ports:
+     # - 8083:8083
+    networks:
+      macvlan_network:
+        ipv4_address: 100.64.0.7
+    cap_add:  #for host and macvlan network
+      - NET_ADMIN  #for host and macvlan network
     restart: unless-stopped
+
+
+networks:
+  macvlan_network:
+    external:
+      name: mynet
